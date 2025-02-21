@@ -2,7 +2,7 @@
 Student information for this assignment:
 
 Replace <FULL NAME> with your name.
-On my/our honor, Mahek Khandelwal, this 
+On my/our honor, Mahek Khandelwal and Labanya Bhadra, this 
 programming assignment is my own work and I have not provided this code to 
 any other student.
 
@@ -13,7 +13,7 @@ code to someone else), the case shall be submitted to the Office of the Dean of
 Students. Academic penalties up to and including an F in the course are likely.
 
 UT EID 1:mk46782
-UT EID 2:
+UT EID 2: lb37943
 """
 
 
@@ -49,33 +49,15 @@ def length_of_longest_substring_n2(s):
     """
     max_length = 0
     n = len(s)
-    for i in range(n): 
+    for i in range(n):
         current_length = 0
-        current = ""
-        for j in range(i,n):
-            if(s[j] not in current):
-                current += s[j]
-                current_length +=1
-            else:
-                break       
-        max_length = max(max_length, current_length)  
+        ascii_array = [0] * 256
+        for j in range(i, n):
+            if ascii_array[ord(s[j])] < 1:
+                ascii_array[ord(s[j])]+=1
+                current_length+=1
+        max_length = max(max_length, current_length)
     return max_length
-
-
-    # max_length = 0
-    # substring= ""
-    # n = len(s)
-    # for i in range(n):
-    #     char = set()
-    #     for j in range(i, n):
-    #         substring = s[i:j]
-    #         for c in substring:
-    #             if c in char:
-    #                 break
-    #             else:
-    #                 char.add(c)
-    #     max_length = max(max_length, len(substring))
-    # return max_length
 
 
 
