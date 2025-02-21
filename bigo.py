@@ -49,14 +49,16 @@ def length_of_longest_substring_n2(s):
     """
     max_length = 0
     n = len(s)
-    for i in range(n):
+    for i in range(n): # First iteration O(N)
         current_length = 0
         ascii_array = [0] * 256
-        for j in range(i, n):
-            if ascii_array[ord(s[j])] < 1:
-                ascii_array[ord(s[j])]+=1
-                current_length+=1
-        max_length = max(max_length, current_length)
+        for j in range(i, n): # Second iteration O(N^2)
+            if ascii_array[ord(s[j])] < 1: # checks there are no duplicates
+                ascii_array[ord(s[j])] += 1
+                current_length += 1
+            else:
+                max_length = max(max_length, current_length)
+                j = n
     return max_length
 
 
