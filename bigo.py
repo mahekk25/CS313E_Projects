@@ -56,6 +56,8 @@ def length_of_longest_substring_n2(s):
             if ascii_array[ord(s[j])] < 1:
                 ascii_array[ord(s[j])]+=1
                 current_length+=1
+            else:
+                current_length-=1
         max_length = max(max_length, current_length)
     return max_length
 
