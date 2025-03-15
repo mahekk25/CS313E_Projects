@@ -2,7 +2,7 @@
 Student information for this assignment:
 
 Replace <FULL NAME> with your name.
-On my/our honor, Mahek Khandelwal, this
+On my/our honor, Mahek Khandelwal and Labanya Bhadra, this
 programming assignment is my own work and I have not provided this code to
 any other student.
 
@@ -85,6 +85,7 @@ class Keyboard:
 
         post: None
         """
+
         for i, guess in enumerate(guessed_word):
             actual = feedback_colors[i]
 
@@ -92,6 +93,8 @@ class Keyboard:
                 self.colors[guess] = CORRECT_COLOR
             elif actual == WRONG_SPOT_COLOR and self.colors.get(guess) != CORRECT_COLOR:
                 self.colors[guess] = WRONG_SPOT_COLOR
+            elif actual == NOT_IN_WORD_COLOR:
+                self.colors[guess] = NOT_IN_WORD_COLOR
             elif actual == NO_COLOR and self.colors.get(guess) != NO_COLOR:
                 self.colors[guess] = NO_COLOR
 
@@ -117,11 +120,11 @@ class Keyboard:
         post: Returns a formatted string with each letter colored according to feedback
               and arranged to match a typical keyboard layout.
         """
-        return (
-            " ".join(self.colors.get(l, l) for l in "qwertyuiop") + "\n" +
-            " " + " ".join(self.colors.get(l, l) for l in "asdfghjkl") + "\n" +
-            "   " + " ".join(self.colors.get(l, l) for l in "zxcvbnm")
-        )
+        row1 = " ".join(color_word(self.colors[l], l) for l in "qwertyuiop")
+        row2 = " " + " ".join(color_word(self.colors[l], l) for l in "asdfghjkl")
+        row3 = "   " + " ".join(color_word(self.colors[l], l) for l in "zxcvbnm")
+
+        return f"{row1}\n{row2}\n{row3}"
 
 
 
@@ -401,7 +404,7 @@ def get_feedback(remaining_secret_words, guessed_word):
     wordfam = {}
     for word in remaining_secret_words:
         feedback_colors = get_feedback_colors(word, guessed_word)
-        if feedback_colors not in wordfam:
+        if tuple(feedback_colors) not in wordfam:
             wordfam[feedback_colors] = []
         wordfam[feedback_colors].append(word)
     word_families = [
