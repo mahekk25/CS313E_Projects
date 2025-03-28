@@ -15,7 +15,6 @@ Students. Academic penalties up to and including an F in the course are likely.
 UT EID 1: mk46782
 UT EID 2:
 """
-import sys
 
 class Node:
     """
@@ -168,15 +167,19 @@ class LinkedList:
         curr1 = self.head
         while curr1:
             curr2 = p.head
+            temp = LinkedList()
             while curr2:
-                result.insert_term(curr1.coeff *curr2.coeff, curr1.exp +curr2.exp)
+                temp.insert_term(curr1.coeff *curr2.coeff, curr1.exp +curr2.exp)
                 curr2 = curr2.next
+            result = result.add(temp)
             curr1 = curr1.next
         return result
     # Return a string representation of the polynomial.
     def __str__(self):
         terms = []
         curr = self.head
+        if not curr:
+            return "0"
         while curr:
             if curr.coeff != 0:
                 terms.append(f"({curr.coeff}, {curr.exp})")
@@ -193,18 +196,18 @@ def main():
     # get sum of p and q as a new linked list and print sum
 
     # get product of p and q as a new linked list and print product
-    input_data = input_data = sys.stdin.read().strip().split("\n\n")
-    def read_polynomial(data):
-        poly = LinkedList()
-        terms = data.split()
-        for term in terms:
-            coeff, exp = map(int, term.strip("(),").split(","))
-            poly.insert_term(coeff, exp)
-        return poly
-
-    p = read_polynomial(input_data[0])
-
-    q = read_polynomial(input_data[1])
+    # Read first polynomial from stdin
+    n = int(input())
+    p = LinkedList()
+    for _ in range(n):
+        coeff, exp = map(int, input().split())
+        p.insert_term(coeff, exp)
+    input()
+    m = int(input())
+    q = LinkedList()
+    for _ in range(m):
+        coeff, exp = map(int, input().split())
+        q.insert_term(coeff, exp)
     print(p.add(q))
     print(p.mult(q))
 
