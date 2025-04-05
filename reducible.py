@@ -133,13 +133,13 @@ def is_reducible(s, hash_table, hash_memo):
         return True
 
     if not find_word(s, hash_table):
-        hash_memo[s] = False
         return False
 
     for i in range(len(s)):
         sub = s[:i] + s[i + 1:]
         if is_reducible(sub, hash_table, hash_memo):
-            insert_word(s, hash_memo)
+            if s not in ["a","i", "o"]:
+                insert_word(s, hash_memo)
             return True
     return False
 
