@@ -444,16 +444,11 @@ class Graph:
                     count[neighbor] -= 1
 
                     if count[neighbor] == 0:
-                        depth = self.vertices[neighbor]
-                        l = self.vertices[neighbor.label]
+                        depth = self.vertices[neighbor].depth
+                        l = self.vertices[neighbor].label
                         avail.insert((-depth, l, neighbor))
-
-            # Add the current semester's courses to the plan, only if it has courses
             if semester:
                 courses.append(semester)
-
-        # Debugging: Print the result to help track what's happening
-        print("Final registration plan:", courses)
 
         return courses
 
